@@ -14,9 +14,3 @@ volumes:
       bucket: ${TACC_S3_BUCKET}
       opts: cache=/tmp/minfs-store
 EOF
-
-# services:
-#   interactive:
-#     image: sd2e/base:ubuntu16
-#     volumes:
-#       - minfs-store:/root

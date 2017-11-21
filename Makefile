@@ -13,7 +13,7 @@ data:
 	scripts/getdata.sh
 
 .PHONY: tests
-tests: data test-mc test-aws test-s3cmd test-minfs test-boto
+tests: data test-mc test-aws test-s3cmd test-boto
 	true
 
 .SILENT: test-mc

@@ -10,7 +10,11 @@ ARG S3_BUCKET
 ARG S3_PROTO
 ARG S3_USE_HTTPS
 
-RUN aws configure set default.s3.signature_version s3v4
+RUN aws configure set default.s3.signature_version s3v4 && \
+    aws configure set default.s3.max_concurrent_requests 32 && \
+    aws configure set default.s3.max_queue_size 10000 && \
+    aws configure set default.s3.multipart_threshold 64MB && \
+    aws configure set default.s3.multipart_chunksize 16MB
 
 ENV AWS_ACCESS_KEY_ID=$S3_KEY
 ENV AWS_SECRET_ACCESS_KEY=$S3_SECRET

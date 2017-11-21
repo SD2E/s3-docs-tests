@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-IMAGE="docker run -v $PWD:/home:rw s3cmd"
-CLIENT="s3cmd --no-check-md5 --progress --stats"
-
-mkdir -p downloads/huge && mkdir -p downloads/toomany
-
+IMAGE="docker run -v $PWD:/home:rw awscli"
+CLIENT="aws --endpoint-url ${TACC_S3_PROTO}://$TACC_S3_URI s3"
+OPTS="--no-guess-mime-type "
 while read COMMAND
 do
     echo "Action: $CLIENT $COMMAND"
@@ -18,13 +16,11 @@ do
     fi
 done <<EOM
 ls s3://$TACC_S3_BUCKET
-sync data/huge s3://$TACC_S3_BUCKET/s3cmd/sync/huge/
-sync data/toomany s3://$TACC_S3_BUCKET/s3cmd/sync/toomany/
-put --recursive data/huge s3://$TACC_S3_BUCKET/s3cmd/put/huge/
-put --recursive data/toomany s3://$TACC_S3_BUCKET/s3cmd/put/toomany/
-get --recursive s3://$TACC_S3_BUCKET/s3cmd/sync/huge downloads/huge/
-get --recursive s3://$TACC_S3_BUCKET/s3cmd/sync/toomany downloads/toomany/
-del --recursive s3://$TACC_S3_BUCKET/s3cmd/sync
-del --recursive s3://$TACC_S3_BUCKET/s3cmd/put
+cp $OPTS --recursive data/huge s3://$TACC_S3_BUCKET/awscli/cp/huge/
+sync $OPTS data/huge s3://$TACC_S3_BUCKET/awscli/sync/huge/
+cp $OPTS--recursive data/toomany s3://$TACC_S3_BUCKET/awscli/cp/toomany/
+sync $OPTS data/toomany s3://$TACC_S3_BUCKET/awscli/sync/toomany/
+rm --recursive s3://$TACC_S3_BUCKET/awscli/cp
+rm --recursive s3://$TACC_S3_BUCKET/awscli/sync
 ls s3://$TACC_S3_BUCKET
 EOM

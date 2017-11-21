@@ -12,13 +12,13 @@ In addition to holding documentation, which will eventually be turned into tutor
 
 **Requirements**
 
-# Mac OS X 10.11+ / Linux (Ubuntu 14+ or Centos 7+)
-# Docker CE 17.09.0-ce-*
-# GNU Make 3.81+
-# GNU Bash 3.2.57+
-# Valid S3 endpoint, API key, and API secret
-# 100MB free disk to run basic tests
-# 100GB free disk and 10Gbit networking to run big data tests
+1. Mac OS X 10.11+ / Linux (Ubuntu 14+ or Centos 7+)
+2. Docker CE 17.09.0-ce-*
+3. GNU Make 3.81+
+4. GNU Bash 3.2.57+
+5. Valid S3 endpoint, API key, and API secret
+6. 100MB free disk to run basic tests
+7. [Optional] 100GB free disk and 10Gb/sec network to run big data tests
 
 ## Running Tests
 
@@ -30,7 +30,7 @@ cp config.rc.sample config.rc
 make docker
 make data
 make tests
-# optional
+# optional - these will take a while and require a lot of disk space
 make data/huge
 make tests/huge
 # now clean up

@@ -1,0 +1,21 @@
+FROM garland/docker-s3cmd:0.1
+
+ARG S3_ALIAS
+ARG S3_URI
+ARG S3_REGION
+ARG S3_KEY
+ARG S3_SECRET
+ARG S3_SIG
+ARG S3_BUCKET
+ARG S3_PROTO
+ARG S3_USE_HTTPS
+
+RUN echo "host_base = $S3_URI"              >  "/root/.s3cfg" && \
+    echo "host_bucket = $S3_URI"            >> "/root/.s3cfg" && \
+    echo "bucket_location = us-east-1"      >> "/root/.s3cfg" && \
+    echo "use_https = $S3_USE_HTTPS"        >> "/root/.s3cfg" && \
+    echo "signature_v2 = False"             >> "/root/.s3cfg" && \
+    echo "access_key = $S3_KEY"             >> "/root/.s3cfg" && \
+    echo "secret_key = $S3_SECRET"          >> "/root/.s3cfg"
+
+WORKDIR /home

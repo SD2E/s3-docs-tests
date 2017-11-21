@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 IMAGE="docker run -v $PWD:/home:rw s3cmd"
-CLIENT="s3cmd"
+CLIENT="s3cmd --no-check-md5 --progress --stats"
 
 mkdir -p downloads/huge && mkdir -p downloads/toomany
 

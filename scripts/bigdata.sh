@@ -6,9 +6,9 @@ mkdir -p data/huge
 filesize=268435456 # 256 MB
 for X in {1..8}
 do
-echo "File $X"
 if [ ! -f data/huge/file_256e${X} ]
 then
+    echo "File $X: ${humanized}MB"
     humanized=$((filesize / 1024 / 1024))
     head -c $filesize </dev/urandom >data/huge/file_${humanized}MB
     filesize=$((filesize * 2))

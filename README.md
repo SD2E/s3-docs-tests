@@ -6,3 +6,33 @@ Documentation
 * [Configuring S3 clients](docs/01-s3-clients.md)
 * [Notifications and events](docs/03-events-reactors.md)
 
+## About this repository
+
+In addition to holding documentation, which will eventually be turned into tutorials and guides, this repo can be used to validate correctness and measure performance of any TACC (or other) S3 endpoint. Tests are driven by the Makefile.
+
+**Requirements**
+
+# Mac OS X 10.11+ / Linux (Ubuntu 14+ or Centos 7+)
+# Docker CE 17.09.0-ce-*
+# GNU Make 3.81+
+# GNU Bash 3.2.57+
+# Valid S3 endpoint, API key, and API secret
+# 100MB free disk to run basic tests
+# 100GB free disk and 10Gbit networking to run big data tests
+
+## Running Tests
+
+```
+git clone https://github.com/SD2E/s3-docs-tests
+cd s3-docs-tests
+cp config.rc.sample config.rc
+# (edit config.rc with appropriate values before proceeding)
+make docker
+make data
+make tests
+# optional
+make data/huge
+make tests/huge
+# now clean up
+make clean
+```

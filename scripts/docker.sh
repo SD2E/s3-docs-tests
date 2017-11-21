@@ -2,8 +2,19 @@
 
 cd docker
 
+COMMAND=$1
+
+echo "docker.sh $COMMAND"
+
+if [ -z "$COMMAND" ]
+then
+    COMMAND="build"
+fi
+
 for I in awscli mc s3cmd boto
 do
+    if [ "$COMMAND" == "build" ]
+    then
     echo "Building $I..."
     docker build -q -t $I -f Dockerfile.${I} \
                  --build-arg S3_ALIAS=$TACC_S3_ALIAS \
@@ -15,5 +26,13 @@ do
                  --build-arg S3_PROTO=$TACC_S3_PROTO \
                  --build-arg S3_USE_HTTPS=$TACC_S3_USE_HTTPS \
                  --build-arg S3_BUCKET=$TACC_S3_BUCKET .
+    elif [ "$COMMAND" == "clean" ]
+    then
+        echo "Deleting Docker image '${I}'"
+        docker rmi -f $I &> /dev/null
+    else
+        echo "Unknown command $COMMAND"
+        exit 1
+    fi
 done
 

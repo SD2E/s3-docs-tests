@@ -47,7 +47,7 @@ test-boto: data
 	tests/05_boto3.sh
 
 .SILENT: data/huge
-data/huge: 
+data/huge: data
 	echo "Generating air-quotes Big Data"
 	scripts/bigdata.sh
 
@@ -56,4 +56,16 @@ data/huge:
 tests/huge: data/huge
 	echo "Running Big Data tests"
 	tests/06_bigdata.sh
-	
+
+.SILENT: clean
+.PHONY: clean
+clean:
+	echo "Cleaning up"
+	rm -rf downloads
+	rm -rf data
+	scripts/docker.sh clean
+
+.SILENT: all
+.PHONY: all
+all: docker data tests 
+	true

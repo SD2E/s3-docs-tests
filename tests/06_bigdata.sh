@@ -18,12 +18,12 @@ do
     fi
 done <<EOM
 ls s3://$TACC_S3_BUCKET
-sync data/huge s3://$TACC_S3_BUCKET/s3cmd/sync/huge
-sync data/toomany s3://$TACC_S3_BUCKET/s3cmd/sync/toomany
-put --recursive data/huge s3://$TACC_S3_BUCKET/s3cmd/put/huge
-put --recursive data/toomany s3://$TACC_S3_BUCKET/s3cmd/put/toomany
-get --recursive s3://$TACC_S3_BUCKET/s3cmd/sync/huge downloads/huge
-get --recursive s3://$TACC_S3_BUCKET/s3cmd/sync/toomany downloads/toomany
+sync data/huge s3://$TACC_S3_BUCKET/s3cmd/sync/huge/
+sync data/toomany s3://$TACC_S3_BUCKET/s3cmd/sync/toomany/
+put --recursive data/huge s3://$TACC_S3_BUCKET/s3cmd/put/huge/
+put --recursive data/toomany s3://$TACC_S3_BUCKET/s3cmd/put/toomany/
+get --recursive s3://$TACC_S3_BUCKET/s3cmd/sync/huge downloads/huge/
+get --recursive s3://$TACC_S3_BUCKET/s3cmd/sync/toomany downloads/toomany/
 del --recursive s3://$TACC_S3_BUCKET/s3cmd/sync
 del --recursive s3://$TACC_S3_BUCKET/s3cmd/put
 ls s3://$TACC_S3_BUCKET

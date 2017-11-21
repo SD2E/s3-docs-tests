@@ -46,3 +46,14 @@ test-boto: data
 	echo "Testing boto Python library"
 	tests/05_boto3.sh
 
+.SILENT: data/huge
+data/huge: 
+	echo "Generating air-quotes Big Data"
+	scripts/bigdata.sh
+
+.SILENT: tests/huge
+.PHONY: tests/huge
+tests/huge: data/huge
+	echo "Running Big Data tests"
+	tests/06_bigdata.sh
+	

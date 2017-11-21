@@ -35,4 +35,4 @@ test-minfs:
 .PHONY: test-boto
 test-boto: 
 	echo "Testing boto Python library"
-	tests/05_boto.sh
+	tests/05_boto3.sh

@@ -2,11 +2,18 @@
 
 IMAGE="docker run -v $PWD:/home:rw"
 CLIENT="mc"
+rm -rf "$0.log"
 
 while read COMMAND
 do
     echo "Action: $CLIENT $COMMAND"
-    time $IMAGE $CLIENT $COMMAND
+
+    T1=$(date "+%s")
+    $IMAGE $CLIENT $COMMAND
+    T2=$(date "+%s")
+    ELAPSED=$((T2 - T1))
+    echo -e "Test: $CLIENT $COMMAND\nElapsed: $ELAPSED seconds" >> "$0.log"
+    
     if [ "$?" == 0 ];
     then
         echo "Success"
@@ -24,3 +31,4 @@ rm --force $TACC_S3_ALIAS/$TACC_S3_BUCKET/5MB.1
 rm -r --force $TACC_S3_ALIAS/$TACC_S3_BUCKET/many
 ls $TACC_S3_ALIAS/$TACC_S3_BUCKET
 EOM
+

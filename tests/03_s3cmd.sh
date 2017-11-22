@@ -2,11 +2,18 @@
 
 IMAGE="docker run -v $PWD:/home:rw s3cmd"
 CLIENT="s3cmd"
+rm -rf "$0.log"
 
 while read COMMAND
 do
     echo "Action: $CLIENT $COMMAND"
-    time $IMAGE $CLIENT $COMMAND
+
+    T1=$(date "+%s")
+    $IMAGE $CLIENT $COMMAND
+    T2=$(date "+%s")
+    ELAPSED=$((T2 - T1))
+    echo -e "Test: $CLIENT $COMMAND\nElapsed: $ELAPSED seconds" >> "$0.log"
+    
     if [ "$?" == 0 ];
     then
         echo "Success"

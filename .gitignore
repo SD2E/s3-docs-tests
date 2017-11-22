@@ -4,3 +4,4 @@ data/*
 docker-compose.yml
 data
 downloads
+*.log

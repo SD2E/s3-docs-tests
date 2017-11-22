@@ -63,6 +63,7 @@ clean:
 	echo "Cleaning up"
 	rm -rf downloads
 	rm -rf data
+	rm -rf tests/*.log
 	scripts/docker.sh clean
 
 .SILENT: all

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+mkdir -p downloads
+
 # 1 GB random files
 echo "Generating 5 MB files"
 mkdir -p data/big/

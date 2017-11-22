@@ -20,7 +20,11 @@ cp $OPTS --recursive data/huge s3://$TACC_S3_BUCKET/awscli/cp/huge/
 sync $OPTS data/huge s3://$TACC_S3_BUCKET/awscli/sync/huge/
 cp $OPTS --recursive data/toomany s3://$TACC_S3_BUCKET/awscli/cp/toomany/
 sync $OPTS data/toomany s3://$TACC_S3_BUCKET/awscli/sync/toomany/
+cp $OPTS --recursive s3://$TACC_S3_BUCKET/awscli/sync/huge downloads/huge/
+cp $OPTS --recursive s3://$TACC_S3_BUCKET/awscli/sync/toomany downloads/toomany/
 rm --recursive s3://$TACC_S3_BUCKET/awscli/cp
 rm --recursive s3://$TACC_S3_BUCKET/awscli/sync
 ls s3://$TACC_S3_BUCKET
 EOM
+
+rm -rf downloads/*

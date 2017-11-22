@@ -3,3 +3,4 @@ config.rc
 data/*
 docker-compose.yml
 data
+downloads

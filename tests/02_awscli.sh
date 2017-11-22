@@ -19,6 +19,7 @@ ls s3://$TACC_S3_BUCKET
 cp data/big/5MB.1 s3://$TACC_S3_BUCKET
 cp --recursive data/many s3://$TACC_S3_BUCKET/awscli/
 sync data/many s3://$TACC_S3_BUCKET/awscli/
+cp s3://$TACC_S3_BUCKET/5MB.1 downloads
 rm --recursive s3://$TACC_S3_BUCKET/awscli
 rm s3://$TACC_S3_BUCKET/5MB.1
 ls s3://$TACC_S3_BUCKET

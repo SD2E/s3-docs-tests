@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
 IMAGE="docker run -v $PWD:/home:rw"
-CLIENT="mc"
+OPTS=
+if [ -n "${TACC_S3_IGNORE_CERT}" ]; then OPTS="--insecure"; fi
+CLIENT="mc $OPTS"
+HNAME=$(hostname)
+
 rm -rf "$0.log"
 
 while read COMMAND
@@ -23,12 +27,10 @@ do
     fi
 done <<EOM
 ls $TACC_S3_ALIAS/$TACC_S3_BUCKET
-cp data/big/5MB.1 $TACC_S3_ALIAS/$TACC_S3_BUCKET
-ls $TACC_S3_ALIAS/$TACC_S3_BUCKET/5MB.1
-cp --recursive data/many $TACC_S3_ALIAS/$TACC_S3_BUCKET/
-ls $TACC_S3_ALIAS/$TACC_S3_BUCKET/many
-rm --force $TACC_S3_ALIAS/$TACC_S3_BUCKET/5MB.1
-rm -r --force $TACC_S3_ALIAS/$TACC_S3_BUCKET/many
+cp data/big/5MB.1 $TACC_S3_ALIAS/$TACC_S3_BUCKET/$HNAME/
+ls $TACC_S3_ALIAS/$TACC_S3_BUCKET/$HNAME/5MB.1
+cp --recursive data/many $TACC_S3_ALIAS/$TACC_S3_BUCKET/$HNAME/
+ls $TACC_S3_ALIAS/$TACC_S3_BUCKET/$HNAME/many
+rm -r --force $TACC_S3_ALIAS/$TACC_S3_BUCKET/$HNAME
 ls $TACC_S3_ALIAS/$TACC_S3_BUCKET
 EOM
-

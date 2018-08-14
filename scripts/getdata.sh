@@ -1,26 +1,48 @@
 #!/usr/bin/env bash
 
-mkdir -p downloads
+command date --version >/dev/null 2>&1 && is_gnu=1 || true
 
-# 1 GB random files
-echo "Generating 5 MB files"
-mkdir -p data/big/
-for X in {1..3}
+function randstring() {
+    if ((is_gnu)); then
+        echo $RANDOM | md5sum | head -c 8
+    else
+        echo $RANDOM | md5 | head -c 8
+    fi
+}
+
+# Multi-GB random files
+echo "Generating bigness series"
+for LAB in biofab emerald ginkgo transcriptic
 do
-echo "File $X"
-if [ ! -f data/big/5MB.${X} ]
+
+DESTROOT="data/${LAB}/201808/$(randstring)"
+mkdir -p ${DESTROOT}
+
+filesize=268435456 # 256 MB
+humanized=$((filesize / 1024 / 1024))
+for X in {1..1}
+do
+FNAME="${DESTROOT}/big_${humanized}MB.txt"
+if [ ! -f $FNAME ]
 then
-    head -c 5242880 </dev/urandom >data/big/5MB.${X}
+    echo "File $X: ${humanized}MB"
+    head -c $filesize </dev/urandom >${FNAME}
+    filesize=$((filesize * 2))
+    humanized=$((filesize / 1024 / 1024))
 fi
 done
 echo "Done"
 
-# 400 1kb random files
-echo "Generating 100 1kb files"
-mkdir -p data/many/
-for X in {1..10}
+DESTROOT="data/${LAB}/201808/$(randstring)"
+mkdir -p ${DESTROOT}
+
+# 10000 1kb random files
+echo "Generating 1000 1kb files"
+for X in {1..100}
 do
-echo "File $X"
-head -c 1024 </dev/urandom >data/many/1kB.${X}
+FNAME="${DESTROOT}/many_${X}.txt"
+head -c 1024 </dev/urandom >${FNAME}
 done
 echo "Done"
+
+done

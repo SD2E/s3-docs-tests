@@ -37,7 +37,7 @@ DESTROOT="data/${LAB}/201808/$(randstring)"
 mkdir -p ${DESTROOT}
 
 # 10000 1kb random files
-echo "Generating 1000 1kb files"
+echo "Generating 100 1kb files"
 for X in {1..1000}
 do
 FNAME="${DESTROOT}/many_${X}.txt"

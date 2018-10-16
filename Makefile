@@ -1,6 +1,8 @@
 include config.rc
 export
 
+all: tests
+
 .SILENT: docker
 .PHONY: docker
 docker:

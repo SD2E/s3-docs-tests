@@ -1,4 +1,4 @@
-FROM garland/aws-cli-docker:0.2
+FROM garland/aws-cli-docker:1.15.47
 
 ARG S3_ALIAS
 ARG S3_URI
